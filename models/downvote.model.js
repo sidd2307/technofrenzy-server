@@ -14,4 +14,4 @@ const downvoteSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-module.exports = mongoose.Model("Downvote", downvoteSchema)
+module.exports = mongoose.model("Downvote", downvoteSchema)

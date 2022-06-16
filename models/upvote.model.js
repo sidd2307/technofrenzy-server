@@ -14,4 +14,4 @@ const upvoteSchema = new mongoose.Schema(
     { timestamps: true }
 )
 
-module.exports = mongoose.Model("Upvote", upvoteSchema)
+module.exports = mongoose.model("Upvote", upvoteSchema)
