@@ -9,6 +9,8 @@ require('dotenv').config()
 const app = express()
 
 // db connection
+const connectToDB = require('./db/db')
+connectToDB(process.env.MONGO_URI)
 
 app.use(cors())
 app.use(express.json())
