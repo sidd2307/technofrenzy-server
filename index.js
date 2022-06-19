@@ -3,6 +3,7 @@ const cors = require('cors')
 require('dotenv').config()
 
 // routes imports
+const auth = require('./routes/auth.routes')
 
 // middlewares
 const verifyToken = require('./middlewares/verifyToken.middleware')
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 })
 
 // routes and middleswares
+app.use('/auth', auth)
 app.use(verifyToken)
 
 const port = process.env.PORT || 8000

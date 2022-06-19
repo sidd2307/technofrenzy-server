@@ -12,7 +12,7 @@ const verifyToken = async (req, res, next) => {
 
         if (!user) {
             return res.status(401).json({
-                message: "You are nnot authenticated to access this information!",
+                message: "You are not authenticated to access this information!",
             })
         }
 
@@ -21,7 +21,7 @@ const verifyToken = async (req, res, next) => {
     } catch (error) {
         console.error(error)
         res.status(401).json({
-            message: "You are nnot authenticated to access this information!",
+            message: "You are not authenticated to access this information!",
             error: error.message
         })
     }
