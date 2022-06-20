@@ -6,9 +6,6 @@ let User = require('../models/user.model')
 // utils import
 let generateToken = require('../utils/generateToken.util')
 
-// middlewares import
-let verifyToken = require('../middlewares/verifyToken.middleware')
-
 let registerUser = async (req, res) => {
     try {
         let { email } = req.body

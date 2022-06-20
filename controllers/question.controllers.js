@@ -29,22 +29,14 @@ const postQuestion = async (req, res) => {
 
 const getAllQuestions = async (req, res) => {
     try {
-        const userId = req.user._id
         const questions = await Question.find()
             .sort({ createdAt: -1 })
             .populate("author")
             .exec()
 
-        const updatedQuestions = questions.map((question) => {
-            if (question.upvotes.includes(userId)) {
-                question.isLiked = true
-            }
-            return question
-        })
-
         res.status(200).json({
             response: {
-                questions: updatedQuestions
+                questions
             },
             message: "Questions fetched successfully!"
         })
@@ -57,7 +49,58 @@ const getAllQuestions = async (req, res) => {
     }
 }
 
+const getQuestionById = async (req, res) => {
+    try {
+        const id = req.params.id
+        const question = await Question.findOne({ _id: id })
+            .populate("author")
+            .exec()
+
+        res.status(200).json({
+            response: {
+                question
+            },
+            message: "Question fetched successfully!"
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            message: "Something went wrong!",
+            error: error.message
+        })
+    }
+}
+
+const deleteQuestion = async (req, res) => {
+    try {
+        const id = req.params.id
+        const userId = req.user._id
+        const question = await Question.findOneAndDelete({ _id: id, author: userId })
+
+        if (!question) {
+            res.status(404).json({
+                message: "Question couldn't be found!"
+            })
+        }
+
+        res.status(200).json({
+            response: {
+                question
+            },
+            message: "Question deleted successfully!"
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            message: "Something went wrong!",
+            error: error.message
+        })
+    }
+}
+
 module.exports = {
     postQuestion,
-    getAllQuestions
+    getAllQuestions,
+    getQuestionById,
+    deleteQuestion
 }
