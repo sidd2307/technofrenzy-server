@@ -18,6 +18,26 @@ const questionSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        author: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+        },
+        isLiked: {
+            type: Boolean,
+            default: false
+        },
+        upvotes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Upvote'
+            }
+        ],
+        downvotes: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Downvote'
+            }
+        ],
         answers: [
             {
                 type: mongoose.Schema.Types.ObjectId,

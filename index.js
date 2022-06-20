@@ -4,6 +4,7 @@ require('dotenv').config()
 
 // routes imports
 const auth = require('./routes/auth.routes')
+const questions = require('./routes/question.routes')
 
 // middlewares
 const verifyToken = require('./middlewares/verifyToken.middleware')
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 // routes and middleswares
 app.use('/auth', auth)
 app.use(verifyToken)
+app.use('/questions', questions)
 
 const port = process.env.PORT || 8000
 app.listen(port, () => console.log(`Server running on Port ${port}`))
