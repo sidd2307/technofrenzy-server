@@ -26,7 +26,7 @@ let registerUser = async (req, res) => {
             return res.status(201).json({
                 message: "Registration successfull!",
                 response: {
-                    name: user.email,
+                    name: user.name,
                     email: user.email,
                     _id: user._id,
                     token
@@ -64,7 +64,7 @@ let loginUser = async (req, res) => {
             return res.status(201).json({
                 message: "Logged in successfully!!",
                 response: {
-                    name: foundUser.email,
+                    name: foundUser.name,
                     email: foundUser.email,
                     _id: foundUser._id,
                     token

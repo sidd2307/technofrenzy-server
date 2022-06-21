@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const downvoteSchema = new mongoose.Schema(
     {
-        postId: {
+        answerId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Answer",
         },

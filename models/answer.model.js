@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 const answerSchema = new mongoose.Schema(
     {
+        questionId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Question"
+        },
         author: [
             {
                 type: mongoose.Schema.Types.ObjectId,
@@ -35,6 +39,10 @@ const answerSchema = new mongoose.Schema(
         downvotesCount: {
             type: Number,
             default: 0
+        },
+        isUpVoted: {
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true }
