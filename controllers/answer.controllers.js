@@ -56,34 +56,34 @@ const deleteAnswer = async (req, res) => {
 const upvoteAnswer = async (req, res) => {
     try {
         const userId = req.user._id
-        const answer = await Answer.findOne({ _id: req.body.answerid })
+        const answer1 = await Answer.findOne({ _id: req.params.answerId })
 
-        if (!answer) {
+        if (!answer1) {
             return res.status(404).json({
                 message: "Answer could'nt be found!"
             })
         }
 
-        const foundUpvote = await Upvote.findOne({ answerId: answer._id, author: userId })
-        const foundDownvote = await Downvote.findOne({ answerId: answer._id, author: userId })
+        const foundUpvote = await Upvote.findOne({ answerId: answer1._id, author: userId })
+        const foundDownvote = await Downvote.findOne({ answerId: answer1._id, author: userId })
 
         if (foundDownvote) {
-            answer.isDownVoted = false
-            await Downvote.findOneAndDelete({ answerId: answer._id, author: userId })
-            const foundIndex = answer.downvotes.indexOf(foundDownvote._id)
-            answer.downvotes.splice(foundIndex, 1)
+            answer1.isDownVoted = false
+            await Downvote.findOneAndDelete({ answerId: answer1._id, author: userId })
+            const foundIndex = answer1.downvotes.indexOf(foundDownvote._id)
+            answer1.downvotes.splice(foundIndex, 1)
         }
 
         if (!foundUpvote) {
-            answer.isUpVoted = true
-            const newUpvote = await new Upvote({ answerId: answer._id, author: userId })
+            answer1.isUpVoted = true
+            const newUpvote = await new Upvote({ answerId: answer1._id, author: userId })
             await newUpvote.save();
-            answer.upvotes.push(newUpvote)
+            answer1.upvotes.push(newUpvote)
         }
 
-        await answer.save()
+        await answer1.save()
         res.status(200).json({
-            response: { answer },
+            response: { answer1 },
             message: "Answer updated successfully!"
         })
     } catch (error) {
@@ -98,7 +98,7 @@ const upvoteAnswer = async (req, res) => {
 const downvoteAnswer = async (req, res) => {
     try {
         const userId = req.user._id
-        const answer = await Answer.findOne({ _id: req.body.answerid })
+        const answer = await Answer.findOne({ _id: req.params.answerId })
 
         if (!answer) {
             return res.status(404).json({
